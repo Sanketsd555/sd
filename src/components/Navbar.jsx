@@ -437,26 +437,16 @@ const NavigationBar = ({ darkMode, toggleDarkMode }) => {
                 <i className="bi bi-house-door me-2"></i>Home
               </Nav.Link>
               <Nav.Link
-                href="#features"
-                className="nav-link-custom"
+                as={Link}
+                to="/portfolio"
+                className={`nav-link-custom ${isActive("/portfolio") ? "active" : ""}`}
                 onClick={() => setExpanded(false)}
                 style={{
                   ...navLinkStyle,
                   color: darkMode ? "white" : "#1a202c",
                 }}
               >
-                <i className="bi bi-stars me-2"></i>Features
-              </Nav.Link>
-              <Nav.Link
-                href="#pricing"
-                className="nav-link-custom"
-                onClick={() => setExpanded(false)}
-                style={{
-                  ...navLinkStyle,
-                  color: darkMode ? "white" : "#1a202c",
-                }}
-              >
-                <i className="bi bi-tag me-2"></i>Pricing
+                <i className="bi bi-graph-up me-2"></i>Portfolio
               </Nav.Link>
               <Nav.Link
                 href="#contact"

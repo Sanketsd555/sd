@@ -134,6 +134,59 @@ const Insurance = () => {
     <>
       <style>
         {`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes slideInLeft {
+            from {
+              opacity: 0;
+              transform: translateX(-50px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+          
+          @keyframes slideInRight {
+            from {
+              opacity: 0;
+              transform: translateX(50px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+          
+          @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+          }
+          
+          @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+          }
+          
+          @keyframes glow {
+            0%, 100% { box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
+            50% { box-shadow: 0 4px 25px rgba(102, 126, 234, 0.6); }
+          }
+          
+          @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+          }
+          
           .insurance-card {
             border: none;
             border-radius: 20px;
@@ -142,17 +195,24 @@ const Insurance = () => {
             background: white;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             height: 100%;
+            animation: fadeInUp 0.6s ease-out;
           }
           
           .insurance-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+            animation: glow 1.5s ease-in-out infinite;
           }
           
           .insurance-image {
             height: 200px;
             object-fit: cover;
             width: 100%;
+            transition: transform 0.5s ease;
+          }
+          
+          .insurance-card:hover .insurance-image {
+            transform: scale(1.05);
           }
           
           .insurance-icon-badge {
@@ -167,6 +227,7 @@ const Insurance = () => {
             align-items: center;
             justify-content: center;
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            animation: bounce 2s ease-in-out infinite;
           }
           
           .popular-badge {
@@ -180,6 +241,7 @@ const Insurance = () => {
             font-size: 0.75rem;
             font-weight: 700;
             box-shadow: 0 3px 10px rgba(245, 87, 108, 0.3);
+            animation: pulse 2s ease-in-out infinite;
           }
           
           .price-tag {
@@ -188,6 +250,7 @@ const Insurance = () => {
             padding: 1.5rem;
             border-radius: 15px;
             margin: 1rem 0;
+            animation: slideInLeft 0.6s ease-out;
           }
           
           .add-to-cart-btn {
@@ -198,28 +261,40 @@ const Insurance = () => {
             border: none;
             transition: all 0.3s ease;
             width: 100%;
+            animation: slideInLeft 0.8s ease-out;
           }
           
           .add-to-cart-btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.02);
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+          }
+          
+          .add-to-cart-btn:active {
+            animation: bounce 0.4s ease;
           }
           
           .view-details-btn {
             border-radius: 12px;
             padding: 12px;
             font-weight: 600;
-            border: 2px solid #667eea;
-            color: #667eea;
-            background: transparent;
+            border: none;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             transition: all 0.3s ease;
             width: 100%;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            animation: slideInRight 0.8s ease-out;
           }
           
           .view-details-btn:hover {
-            background: #667eea;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
             color: white;
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+          }
+          
+          .view-details-btn:active {
+            animation: bounce 0.4s ease;
           }
           
           .cart-badge {
@@ -237,11 +312,12 @@ const Insurance = () => {
             justify-content: center;
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
           }
           
           .cart-badge:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
           }
           
           .cart-count {

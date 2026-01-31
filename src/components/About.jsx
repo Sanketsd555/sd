@@ -6,7 +6,7 @@ const About = () => {
     { number: "10+", label: "Years Experience", icon: "bi-calendar-check" },
     { number: "500K+", label: "Active Users", icon: "bi-people" },
     { number: "150+", label: "Countries", icon: "bi-globe" },
-    { number: "$2B+", label: "Transactions", icon: "bi-currency-dollar" },
+    { number: "₹15B+", label: "Transactions", icon: "bi-currency-dollar" },
   ];
 
   const values = [
@@ -62,7 +62,7 @@ const About = () => {
               countries.
             </p>
             <p className="text-muted mb-3">
-              Our platform processes billions of dollars in transactions
+              Our platform processes trillions of rupees in transactions
               annually, helping businesses of all sizes streamline their
               financial operations. From startups to enterprises, we provide the
               tools and infrastructure needed to succeed in today's digital

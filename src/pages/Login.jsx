@@ -55,7 +55,7 @@ const Login = () => {
   const pageStyle = {
     minHeight: "100vh",
     background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    paddingTop: "0px",
+    paddingTop: "100px",
     paddingBottom: "80px",
     position: "relative",
     overflow: "hidden",
@@ -122,8 +122,40 @@ const Login = () => {
             50% { transform: translateY(-20px) rotate(10deg); }
           }
           
+          @keyframes slideInDown {
+            from {
+              opacity: 0;
+              transform: translateY(-30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes slideInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+          }
+          
+          .login-card {
+            animation: slideInUp 0.8s ease-out;
+          }
+          
           .login-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3) !important;
           }
           
           .form-control:focus {
@@ -134,22 +166,46 @@ const Login = () => {
           }
           
           .form-label {
-            font-size: 14px;
-            letter-spacing: 0.3px;
+            font-size: 13px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            font-weight: 600 !important;
-            color: #4a5568 !important;
-            margin-bottom: 8px !important;
+            font-weight: 700 !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px !important;
           }
           
           .form-check-label {
-            font-size: 14px !important;
+            font-size: 13px !important;
             color: #4a5568 !important;
             font-weight: 500 !important;
           }
           
+          .btn-login {
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+            z-index: 1;
+          }
+          
+          .btn-login:hover::before {
+            left: 100%;
+          }
+          
           .btn-login:hover {
-            transform: translateY(-4px);
+            transform: translateY(-4px) scale(1.02);
             box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6), 0 0 20px rgba(118, 75, 162, 0.2);
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
           }
@@ -161,7 +217,7 @@ const Login = () => {
           
           .social-btn:hover {
             border-color: #667eea;
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2), 0 0 15px rgba(102, 126, 234, 0.1);
             background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
           }
@@ -173,6 +229,12 @@ const Login = () => {
             transform: translateY(-50%);
             cursor: pointer;
             color: #667eea;
+            transition: all 0.3s ease;
+          }
+          
+          .password-toggle:hover {
+            color: #764ba2;
+            transform: translateY(-50%) scale(1.2);
           }
           
           .link-hover {
@@ -182,6 +244,23 @@ const Login = () => {
           .link-hover:hover {
             color: #764ba2 !important;
             transform: translateX(5px);
+          }
+          
+          .icon-badge {
+            animation: slideInDown 0.8s ease-out 0.1s both;
+          }
+          
+          .form-group {
+            animation: slideInUp 0.8s ease-out;
+          }
+          
+          .form-group:nth-child(1) { animation-delay: 0.2s; }
+          .form-group:nth-child(2) { animation-delay: 0.3s; }
+          .form-group:nth-child(3) { animation-delay: 0.4s; }
+          .form-group:nth-child(4) { animation-delay: 0.5s; }
+          
+          .error-alert {
+            animation: slideInDown 0.5s ease-out;
           }
         `}
       </style>
@@ -222,38 +301,57 @@ const Login = () => {
         <Row className="justify-content-center">
           <Col md={8} lg={5}>
             <Card style={cardStyle} className="login-card">
-              <Card.Body className="p-5">
+              <Card.Body className="p-4">
                 {/* Header */}
-                <div className="text-center mb-4">
+                <div className="text-center mb-3">
                   <div
+                    className="icon-badge"
                     style={{
-                      width: "70px",
-                      height: "70px",
+                      width: "60px",
+                      height: "60px",
                       background:
                         "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                       borderRadius: "20px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      margin: "0 auto 20px",
+                      margin: "0 auto 15px",
                       boxShadow: "0 5px 15px rgba(102, 126, 234, 0.3)",
+                      border: "2px solid rgba(255, 255, 255, 0.3)",
                     }}
                   >
                     <i
                       className="bi bi-lock-fill text-white"
-                      style={{ fontSize: "32px" }}
+                      style={{ fontSize: "28px" }}
                     ></i>
                   </div>
-                  <h2 className="fw-bold mb-2" style={{ color: "#2d3748" }}>
+                  <h2
+                    className="fw-bold mb-1"
+                    style={{
+                      color: "#2d3748",
+                      fontSize: "28px",
+                      letterSpacing: "-0.5px",
+                    }}
+                  >
                     Welcome Back!
                   </h2>
-                  <p className="text-muted">Login to continue to FineEdge</p>
+                  <p
+                    className="text-muted"
+                    style={{ fontSize: "14px", marginBottom: "15px" }}
+                  >
+                    Login to your FineEdge account
+                  </p>
                 </div>
 
                 {error && (
                   <Alert
                     variant="danger"
-                    style={{ borderRadius: "12px", border: "none" }}
+                    className="error-alert"
+                    style={{
+                      borderRadius: "12px",
+                      border: "none",
+                      fontSize: "13px",
+                    }}
                   >
                     <i className="bi bi-exclamation-circle me-2"></i>
                     {error}
@@ -261,8 +359,14 @@ const Login = () => {
                 )}
 
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3">
-                    <Form.Label style={{ fontWeight: "600", color: "#4a5568" }}>
+                  <Form.Group className="mb-2">
+                    <Form.Label
+                      style={{
+                        fontWeight: "600",
+                        color: "#4a5568",
+                        fontSize: "13px",
+                      }}
+                    >
                       <i className="bi bi-envelope me-2"></i>Email Address
                     </Form.Label>
                     <Form.Control
@@ -273,12 +377,18 @@ const Login = () => {
                       onChange={handleChange}
                       required
                       style={inputStyle}
-                      size="lg"
+                      size="sm"
                     />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" style={{ position: "relative" }}>
-                    <Form.Label style={{ fontWeight: "600", color: "#4a5568" }}>
+                  <Form.Group className="mb-2" style={{ position: "relative" }}>
+                    <Form.Label
+                      style={{
+                        fontWeight: "600",
+                        color: "#4a5568",
+                        fontSize: "13px",
+                      }}
+                    >
                       <i className="bi bi-shield-lock me-2"></i>Password
                     </Form.Label>
                     <Form.Control
@@ -289,7 +399,7 @@ const Login = () => {
                       onChange={handleChange}
                       required
                       style={inputStyle}
-                      size="lg"
+                      size="sm"
                     />
                     <i
                       className={`bi bi-eye${showPassword ? "-slash" : ""}-fill password-toggle`}
@@ -297,7 +407,7 @@ const Login = () => {
                     ></i>
                   </Form.Group>
 
-                  <div className="d-flex justify-content-between align-items-center mb-4">
+                  <div className="d-flex justify-content-between align-items-center mb-3">
                     <Form.Check
                       type="checkbox"
                       name="rememberMe"
@@ -317,8 +427,8 @@ const Login = () => {
 
                   <Button
                     type="submit"
-                    size="lg"
-                    className="w-100 mb-3 btn-login"
+                    size="sm"
+                    className="w-100 mb-2 btn-login"
                     style={buttonStyle}
                     disabled={loading}
                   >

@@ -32,7 +32,7 @@ const FraudDetection = () => {
       color: "#8b5cf6",
     },
     {
-      value: "$50M+",
+      value: "₹400Cr+",
       label: "Fraud Prevented",
       icon: "🛡️",
       color: "#5b21b6",

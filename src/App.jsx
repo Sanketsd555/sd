@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Portfolio from "./pages/Portfolio";
+import { PortfolioProvider } from "./context/PortfolioContext";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -28,13 +30,19 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <NavigationBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-        <Footer />
+        <PortfolioProvider>
+          <NavigationBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/portfolio"
+              element={<Portfolio darkMode={darkMode} />}
+            />
+          </Routes>
+          <Footer />
+        </PortfolioProvider>
       </div>
     </Router>
   );

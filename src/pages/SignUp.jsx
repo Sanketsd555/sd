@@ -83,7 +83,7 @@ const SignUp = () => {
   const pageStyle = {
     minHeight: "100vh",
     background: "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
-    paddingTop: "0px",
+    paddingTop: "100px",
     paddingBottom: "80px",
     position: "relative",
     overflow: "hidden",
@@ -165,8 +165,40 @@ const SignUp = () => {
             50% { transform: translateY(-20px) rotate(10deg); }
           }
           
+          @keyframes slideInDown {
+            from {
+              opacity: 0;
+              transform: translateY(-30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes slideInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+          }
+          
+          .signup-card {
+            animation: slideInUp 0.8s ease-out;
+          }
+          
           .signup-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(17, 153, 142, 0.3) !important;
           }
           
           .form-control:focus {
@@ -177,25 +209,85 @@ const SignUp = () => {
           }
           
           .form-label {
-            font-size: 14px;
-            letter-spacing: 0.3px;
+            font-size: 13px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            font-weight: 600 !important;
-            color: #4a5568 !important;
-            margin-bottom: 8px !important;
+            font-weight: 700 !important;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px !important;
           }
           
           .form-check-label {
-            font-size: 14px !important;
+            font-size: 13px !important;
             color: #4a5568 !important;
             font-weight: 500 !important;
           }
           
+          .btn-signup {
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .btn-signup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+            z-index: 1;
+          }
+          
+          .btn-signup:hover::before {
+            left: 100%;
+          }
+          
           .btn-signup:hover {
-            transform: translateY(-4px);
+            transform: translateY(-4px) scale(1.02);
             box-shadow: 0 12px 35px rgba(17, 153, 142, 0.5), 0 0 20px rgba(56, 239, 125, 0.2);
             background: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
           }
+          
+          .btn-signup:active {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(17, 153, 142, 0.3);
+          }
+          
+          .feature-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #11998e;
+            margin: 0 4px 8px 0;
+            border: 1px solid rgba(17, 153, 142, 0.2);
+            animation: slideInDown 0.8s ease-out;
+          }
+          
+          .feature-badge:nth-child(1) { animation-delay: 0.3s; }
+          .feature-badge:nth-child(2) { animation-delay: 0.4s; }
+          .feature-badge:nth-child(3) { animation-delay: 0.5s; }
+          
+          .icon-badge {
+            animation: slideInDown 0.8s ease-out 0.1s both;
+          }
+          
+          .form-group {
+            animation: slideInUp 0.8s ease-out;
+          }
+          
+          .form-group:nth-child(1) { animation-delay: 0.2s; }
+          .form-group:nth-child(2) { animation-delay: 0.3s; }
+          .form-group:nth-child(3) { animation-delay: 0.4s; }
+          .form-group:nth-child(4) { animation-delay: 0.5s; }
+          .form-group:nth-child(5) { animation-delay: 0.6s; }
           
           .btn-signup:active {
             transform: translateY(-2px);
@@ -204,7 +296,7 @@ const SignUp = () => {
           
           .social-btn:hover {
             border-color: #11998e;
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 20px rgba(17, 153, 142, 0.2), 0 0 15px rgba(56, 239, 125, 0.1);
             background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
           }
@@ -217,6 +309,12 @@ const SignUp = () => {
             cursor: pointer;
             color: #11998e;
             z-index: 10;
+            transition: all 0.3s ease;
+          }
+          
+          .password-toggle:hover {
+            color: #38ef7d;
+            transform: translateY(-50%) scale(1.2);
           }
           
           .link-hover {
@@ -233,18 +331,6 @@ const SignUp = () => {
             border-radius: 2px;
             transition: all 0.3s ease;
             margin-top: 8px;
-          }
-          
-          .feature-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 8px 16px;
-            background: rgba(17, 153, 142, 0.1);
-            border-radius: 20px;
-            margin: 5px;
-            font-size: 13px;
-            color: #11998e;
-            font-weight: 500;
           }
         `}
       </style>
@@ -285,37 +371,49 @@ const SignUp = () => {
         <Row className="justify-content-center">
           <Col md={10} lg={6}>
             <Card style={cardStyle} className="signup-card">
-              <Card.Body className="p-5">
+              <Card.Body className="p-4">
                 {/* Header */}
-                <div className="text-center mb-4">
+                <div className="text-center mb-3">
                   <div
+                    className="icon-badge"
                     style={{
-                      width: "70px",
-                      height: "70px",
+                      width: "60px",
+                      height: "60px",
                       background:
                         "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
                       borderRadius: "20px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      margin: "0 auto 20px",
+                      margin: "0 auto 15px",
                       boxShadow: "0 5px 15px rgba(17, 153, 142, 0.3)",
+                      border: "2px solid rgba(255, 255, 255, 0.3)",
                     }}
                   >
                     <i
                       className="bi bi-person-plus-fill text-white"
-                      style={{ fontSize: "32px" }}
+                      style={{ fontSize: "28px" }}
                     ></i>
                   </div>
-                  <h2 className="fw-bold mb-2" style={{ color: "#2d3748" }}>
+                  <h2
+                    className="fw-bold mb-1"
+                    style={{
+                      color: "#2d3748",
+                      fontSize: "28px",
+                      letterSpacing: "-0.5px",
+                    }}
+                  >
                     Create Your Account
                   </h2>
-                  <p className="text-muted">
+                  <p
+                    className="text-muted"
+                    style={{ fontSize: "14px", marginBottom: "15px" }}
+                  >
                     Join FineEdge and start your financial journey
                   </p>
 
                   {/* Feature badges */}
-                  <div className="mt-3">
+                  <div className="mt-2">
                     <span className="feature-badge">
                       <i className="bi bi-shield-check me-2"></i>Secure
                     </span>
@@ -329,8 +427,14 @@ const SignUp = () => {
                 </div>
 
                 <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3">
-                    <Form.Label style={{ fontWeight: "600", color: "#4a5568" }}>
+                  <Form.Group className="mb-2">
+                    <Form.Label
+                      style={{
+                        fontWeight: "600",
+                        color: "#4a5568",
+                        fontSize: "13px",
+                      }}
+                    >
                       <i className="bi bi-person me-2"></i>Full Name
                     </Form.Label>
                     <Form.Control
@@ -341,15 +445,21 @@ const SignUp = () => {
                       onChange={handleChange}
                       isInvalid={!!errors.fullName}
                       style={inputStyle}
-                      size="lg"
+                      size="sm"
                     />
                     <Form.Control.Feedback type="invalid">
                       {errors.fullName}
                     </Form.Control.Feedback>
                   </Form.Group>
 
-                  <Form.Group className="mb-3">
-                    <Form.Label style={{ fontWeight: "600", color: "#4a5568" }}>
+                  <Form.Group className="mb-2">
+                    <Form.Label
+                      style={{
+                        fontWeight: "600",
+                        color: "#4a5568",
+                        fontSize: "13px",
+                      }}
+                    >
                       <i className="bi bi-envelope me-2"></i>Email Address
                     </Form.Label>
                     <Form.Control
@@ -360,15 +470,21 @@ const SignUp = () => {
                       onChange={handleChange}
                       isInvalid={!!errors.email}
                       style={inputStyle}
-                      size="lg"
+                      size="sm"
                     />
                     <Form.Control.Feedback type="invalid">
                       {errors.email}
                     </Form.Control.Feedback>
                   </Form.Group>
 
-                  <Form.Group className="mb-3" style={{ position: "relative" }}>
-                    <Form.Label style={{ fontWeight: "600", color: "#4a5568" }}>
+                  <Form.Group className="mb-2" style={{ position: "relative" }}>
+                    <Form.Label
+                      style={{
+                        fontWeight: "600",
+                        color: "#4a5568",
+                        fontSize: "13px",
+                      }}
+                    >
                       <i className="bi bi-shield-lock me-2"></i>Password
                     </Form.Label>
                     <Form.Control
@@ -379,7 +495,7 @@ const SignUp = () => {
                       onChange={handleChange}
                       isInvalid={!!errors.password}
                       style={inputStyle}
-                      size="lg"
+                      size="sm"
                     />
                     <i
                       className={`bi bi-eye${showPassword ? "-slash" : ""}-fill password-toggle`}
@@ -426,8 +542,14 @@ const SignUp = () => {
                     )}
                   </Form.Group>
 
-                  <Form.Group className="mb-3" style={{ position: "relative" }}>
-                    <Form.Label style={{ fontWeight: "600", color: "#4a5568" }}>
+                  <Form.Group className="mb-2" style={{ position: "relative" }}>
+                    <Form.Label
+                      style={{
+                        fontWeight: "600",
+                        color: "#4a5568",
+                        fontSize: "13px",
+                      }}
+                    >
                       <i className="bi bi-shield-check me-2"></i>Confirm
                       Password
                     </Form.Label>
@@ -439,7 +561,7 @@ const SignUp = () => {
                       onChange={handleChange}
                       isInvalid={!!errors.confirmPassword}
                       style={inputStyle}
-                      size="lg"
+                      size="sm"
                     />
                     <i
                       className={`bi bi-eye${showConfirmPassword ? "-slash" : ""}-fill password-toggle`}
@@ -452,7 +574,7 @@ const SignUp = () => {
                     </Form.Control.Feedback>
                   </Form.Group>
 
-                  <Form.Group className="mb-4">
+                  <Form.Group className="mb-2">
                     <Form.Check
                       type="checkbox"
                       name="agreeToTerms"
@@ -494,8 +616,8 @@ const SignUp = () => {
 
                   <Button
                     type="submit"
-                    size="lg"
-                    className="w-100 mb-3 btn-signup"
+                    size="sm"
+                    className="w-100 mb-2 btn-signup"
                     style={buttonStyle}
                     disabled={loading}
                   >

@@ -1,22 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Hero from "../components/Hero";
-import Pricing from "../components/Pricing";
-import Insurance from "../components/Insurance";
-import DigitalPayment from "../components/DigitalPayment";
-import Lending from "../components/Lending";
+import FeatureSection from "../components/FeatureSection";
 
 const Home = () => {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem("darkMode") === "true";
+    setDarkMode(savedDarkMode);
+
+    const handleDarkModeChange = () => {
+      const isDark = localStorage.getItem("darkMode") === "true";
+      setDarkMode(isDark);
+    };
+
+    window.addEventListener("storage", handleDarkModeChange);
+    window.addEventListener("darkModeChanged", handleDarkModeChange);
+
+    return () => {
+      window.removeEventListener("storage", handleDarkModeChange);
+      window.removeEventListener("darkModeChanged", handleDarkModeChange);
+    };
+  }, []);
+
   return (
     <>
       <Hero />
-      <div id="features">
-        <Pricing />
-      </div>
-      <div id="pricing">
-        <Insurance />
-      </div>
-      <DigitalPayment />
-      <Lending />
+      <FeatureSection darkMode={darkMode} />
       <div id="contact">
         <div style={{ height: "100px" }} />
       </div>
